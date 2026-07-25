@@ -1,0 +1,15 @@
+# Secrets / credentials
+appsscript.json
+.clasp.json
+*.token
+*.key
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo

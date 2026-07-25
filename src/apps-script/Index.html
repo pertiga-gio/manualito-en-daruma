@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manualito en Daruma - Consulta de Manual de Funciones</title>
+    <style>
+        :root {
+            --primary: #0056b3;
+            --secondary: #f8f9fa;
+            --text-dark: #343a40;
+            --border: #dee2e6;
+            --hover: #e9ecef;
+            --accent: #28a745;
+        }
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f7f6; color: var(--text-dark); }
+
+        .external-link-banner {
+            background-color: #fff3cd; border-bottom: 1px solid #ffeeba;
+            padding: 10px 20px; text-align: center;
+            display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap;
+        }
+        .btn-external {
+            background-color: var(--accent); color: white; text-decoration: none;
+            padding: 8px 16px; border-radius: 20px; font-weight: bold; font-size: 0.9rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: transform 0.2s, background-color 0.2s;
+        }
+        .btn-external:hover { background-color: #218838; transform: scale(1.05); }
+
+        .header { background: white; border-bottom: 4px solid var(--primary); padding: 15px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .header-content { display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap; max-width: 98%; margin: 0 auto; padding: 0 15px; }
+        .header-text { text-align: center; max-width: 600px; }
+        .header-text h1 { margin: 0; color: var(--primary); font-size: 1.8rem; text-transform: uppercase; line-height: 1.1; font-weight: 800; }
+        .header-text p { margin: 4px 0; color: #666; font-size: 0.9rem; }
+        .sub-subtitle { font-weight: bold; color: #444; }
+
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; gap: 15px; }
+        }
+
+        .container { max-width: 95%; margin: 20px auto; padding: 0 15px; }
+        .card { background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 20px; padding: 20px; border: 1px solid var(--border); }
+
+        .search-section { margin-bottom: 20px; }
+        .global-search { width: 100%; padding: 12px 15px; font-size: 1rem; border: 2px solid var(--primary); border-radius: 6px; outline: none; transition: box-shadow 0.3s; }
+        .global-search:focus { box-shadow: 0 0 8px rgba(0, 86, 179, 0.2); }
+        .filters-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.85rem; }
+        .form-control { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.9rem; background-color: white; }
+        .btn-reset { background-color: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-top: 15px; display: inline-block; }
+        .btn-reset:hover { background-color: #5a6268; }
+
+        .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .badge { background-color: var(--primary); color: white; padding: 5px 10px; border-radius: 15px; font-weight: bold; font-size: 0.85rem; }
+        .table-wrapper { max-height: 70vh; overflow-y: auto; border: 1px solid var(--border); border-radius: 4px; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        thead th { background-color: #e9ecef; color: #333; padding: 12px 8px; text-align: left; position: sticky; top: 0; z-index: 10; border-bottom: 2px solid #ccc; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; }
+        tbody td { padding: 8px; border-bottom: 1px solid #eee; vertical-align: middle; }
+        tbody tr:nth-child(even) { background-color: #f8f9fa; }
+        tbody tr:hover { background-color: #e2e6ea; }
+        .btn-link { display: inline-block; color: var(--primary); text-decoration: none; border: 1px solid var(--primary); padding: 3px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; white-space: nowrap; }
+        .btn-link:hover { background-color: var(--primary); color: white; }
+
+        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .spinner { width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div id="loader">
+        <div class="spinner"></div>
+        <h3 style="color: var(--primary); margin-top: 20px;">Cargando Manual de Funciones...</h3>
+        <p>Conectando con Daruma</p>
+    </div>
+
+    <header class="header">
+        <div class="header-content">
+            <div class="header-text">
+                <h1>Manualito en Daruma</h1>
+                <p class="subtitle">Departamento Administrativo de Desarrollo e Innovación Institucional</p>
+                <p class="sub-subtitle">Subdirección de Gestión Estratégica del Talento Humano</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <div class="search-section">
+                <label for="globalSearch" style="font-weight:bold; display:block; margin-bottom:5px;">Búsqueda Rápida:</label>
+                <input type="text" id="globalSearch" class="global-search" placeholder="🔍 Escribe aquí cualquier dato..." onkeyup="aplicarFiltros()">
+            </div>
+            <div class="filters-grid">
+                <div class="form-group"><label>Nivel</label><select id="filtroNivel" class="form-control" onchange="aplicarFiltros()"><option value="">Todos</option></select></div>
+                <div class="form-group"><label>Denominación</label><select id="filtroDenominacion" class="form-control" onchange="aplicarFiltros()"><option value="">Todas</option></select></div>
+                <div class="form-group"><label>Código</label><select id="filtroCodigo" class="form-control" onchange="aplicarFiltros()"><option value="">Todos</option></select></div>
+                <div class="form-group"><label>Grado</label><select id="filtroGrado" class="form-control" onchange="aplicarFiltros()"><option value="">Todos</option></select></div>
+                <div class="form-group"><label>Dependencia / Área</label><select id="filtroArea" class="form-control" onchange="aplicarFiltros()"><option value="">Todas</option></select></div>
+            </div>
+            <div style="text-align: right;"><button class="btn-reset" onclick="resetearFiltros()">♻️ Limpiar Filtros</button></div>
+        </div>
+
+        <div class="results-header">
+            <h3>Resultados de la consulta</h3>
+            <span id="contadorResultados" class="badge">0 Registros</span>
+        </div>
+
+        <div class="card" style="padding: 0;">
+            <div class="table-wrapper">
+                <table id="tablaResultados">
+                    <thead>
+                        <tr>
+                            <th style="width: 80px;">Número de ficha</th>
+                            <th>Nivel</th>
+                            <th style="min-width: 200px;">Denominación</th>
+                            <th>Código</th>
+                            <th>Grado</th>
+                            <th>Naturaleza</th>
+                            <th style="min-width: 250px;">Propósito Principal</th>
+                            <th style="min-width: 150px;">Dependencia / Área</th>
+                            <th style="min-width: 150px;">Decreto Vigente</th>
+                            <th style="text-align: center;">Documento</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let datosGlobales = [];
+
+        window.onload = function() {
+            google.script.run
+                .withSuccessHandler(function(url) {
+                    const btn = document.getElementById('btnFullView');
+                    if(btn) btn.href = url;
+                })
+                .getServiceUrl();
+            cargarDatos();
+        };
+
+        function cargarDatos() {
+            google.script.run
+                .withSuccessHandler(datosCargadosExitosamente)
+                .withFailureHandler(errorCarga)
+                .getCachedData();
+        }
+
+        function datosCargadosExitosamente(datos) {
+            if (!datos || datos.length === 0) {
+                errorCarga("No se recibieron datos del servidor.");
+                return;
+            }
+            datosGlobales = datos;
+            poblarSelect('filtroNivel', 'nivel');
+            poblarSelect('filtroDenominacion', 'denominacion');
+            poblarSelect('filtroCodigo', 'codigo');
+            poblarSelect('filtroGrado', 'grado');
+            poblarSelect('filtroArea', 'area');
+            renderizarTabla(datosGlobales);
+            document.getElementById('loader').style.display = 'none';
+        }
+
+        function errorCarga(e) {
+            console.error("Error detallado:", e);
+            const loader = document.getElementById('loader');
+            loader.innerHTML = `
+                <div style="text-align:center; padding:20px;">
+                    <h3 style="color:red;">⚠️ Error al cargar datos</h3>
+                    <p>${e}</p>
+                    <button onclick="location.reload()" style="padding:10px; cursor:pointer;">Reintentar</button>
+                </div>
+            `;
+        }
+
+        function aplicarFiltros() {
+            const texto = document.getElementById('globalSearch').value.toLowerCase().trim();
+            const fNivel = document.getElementById('filtroNivel').value;
+            const fDenom = document.getElementById('filtroDenominacion').value;
+            const fCodigo = document.getElementById('filtroCodigo').value;
+            const fGrado = document.getElementById('filtroGrado').value;
+            const fArea = document.getElementById('filtroArea').value;
+
+            const resultados = datosGlobales.filter(item => {
+                const ficha = (item.ficha || "").toString();
+                const nivel = (item.nivel || "").toString();
+                const denom = (item.denominacion || "").toString();
+                const codigo = (item.codigo || "").toString();
+                const grado = (item.grado || "").toString();
+                const area = (item.area || "").toString();
+                const proposito = (item.proposito || "").toString();
+                const decreto = (item.decreto || "").toString();
+                
+                const todoElTexto = `${ficha} ${nivel} ${denom} ${codigo} ${grado} ${area} ${proposito} ${decreto}`.toLowerCase();
+                const matchTexto = texto === "" || todoElTexto.includes(texto);
+                const matchNivel = fNivel === "" || nivel === fNivel;
+                const matchDenom = fDenom === "" || denom === fDenom;
+                const matchCodigo = fCodigo === "" || codigo === fCodigo;
+                const matchGrado = fGrado === "" || grado === fGrado;
+                const matchArea = fArea === "" || area === fArea;
+
+                return matchTexto && matchNivel && matchDenom && matchCodigo && matchGrado && matchArea;
+            });
+            renderizarTabla(resultados);
+        }
+
+        function renderizarTabla(datos) {
+            const tbody = document.getElementById('tablaBody');
+            const contador = document.getElementById('contadorResultados');
+            tbody.innerHTML = "";
+            contador.textContent = datos.length + " Registros";
+
+            if (datos.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="10" style="text-align:center; padding:20px;">No se encontraron resultados</td></tr>';
+                return;
+            }
+
+            const limite = Math.min(datos.length, 500);
+            let html = "";
+
+            for (let i = 0; i < limite; i++) {
+                const fila = datos[i];
+                const btn = (fila.url && fila.url.length > 5) 
+                    ? `<a href="${fila.url}" target="_blank" class="btn-link">📄 VER EN DARUMA</a>` 
+                    : '<span style="color:#aaa">-</span>';
+
+                html += `<tr>
+                    <td style="font-weight:bold; color:#555;">${fila.ficha || ""}</td>
+                    <td><strong>${fila.nivel || ""}</strong></td>
+                    <td>${fila.denominacion || ""}</td>
+                    <td>${fila.codigo || ""}</td>
+                    <td>${fila.grado || ""}</td>
+                    <td>${fila.naturaleza || ""}</td>
+                    <td style="font-size: 0.8rem;">${fila.proposito || ""}</td>
+                    <td>${fila.area || ""}</td>
+                    <td>${fila.decreto || ""}</td>
+                    <td style="text-align:center;">${btn}</td>
+                </tr>`;
+            }
+            tbody.innerHTML = html;
+        }
+
+        function poblarSelect(id, key) {
+            const select = document.getElementById(id);
+            const unicos = [...new Set(datosGlobales.map(d => d[key]))].filter(x => x && x.toString().trim() !== "").sort();
+            while (select.options.length > 1) select.remove(1);
+            unicos.forEach(val => {
+                const opt = document.createElement('option');
+                opt.value = val;
+                opt.text = val;
+                select.appendChild(opt);
+            });
+        }
+
+        function resetearFiltros() {
+            document.getElementById('globalSearch').value = "";
+            document.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
+            aplicarFiltros();
+        }
+    </script>
+</body>
+</html>
