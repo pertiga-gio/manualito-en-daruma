@@ -48,6 +48,32 @@ Frontend vanilla HTML/JS. Carga datos vía `google.script.run.getCachedData()`.
 
 ## Flujo de datos
 
+```mermaid
+graph TD
+    A[API SIG Cali<br/>JSON response] -->|UrlFetchApp| B[Hoja 'Datos'<br/>raw API data]
+    B --> C{Diff por<br/>fecha_modificacion}
+    C -->|Nuevas o modificadas| D[Lista de fichas a actualizar]
+    C -->|Sin cambios| E[☕ Skip — todo actualizado]
+    D --> F[Procesar lote<br/>BATCH_SIZE=40, CONCURRENCY=5]
+    F -->|fetch HTML| G[Scraping de cada ficha<br/>en Daruma]
+    G -->|Regex + table parser| H[Extraer 28 campos<br/>API + HTML]
+    H --> I[Hoja 'Informe'<br/>datos completos]
+    I -->|getCachedData| J[Web App Index.html]
+    J --> K[Usuario: filtros + búsqueda]
+    
+    F -->|¿quedan fichas?| L[Trigger en 3s<br/>re-ejecuta lote]
+    L --> F
+    F -->|terminó| M[🗑️ Eliminar triggers]
+
+    N[Trigger diario<br/>4:00 AM] --> A
+
+    style A fill:#4CAF50,color:#fff
+    style G fill:#FF9800,color:#fff
+    style J fill:#2196F3,color:#fff
+    style N fill:#9C27B0,color:#fff
+    style E fill:#999,color:#fff
+```
+
 ```
 API SIG Cali (JSON)
     │
