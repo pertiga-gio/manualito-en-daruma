@@ -2,6 +2,8 @@
 
 **Herramienta de búsqueda y consulta de manuales de funciones para la Alcaldía de Santiago de Cali**
 
+🔗 **Portal de Daruma (consulta pública)**: https://sig.cali.gov.co/app.php/staff/portal/tab/16
+
 Desplegado en **abril de 2026**, "Manualito en Daruma" facilita la búsqueda de documentos — específicamente las fichas de descripción de funciones — dentro del módulo **Portal de Daruma** del sistema SIG (Sistema Integrado de Gestión) de la Alcaldía de Cali.
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
@@ -194,8 +196,13 @@ El script agrega un menú **⚙️ SIG CALI** al spreadsheet con:
 
 MIT — Ver [LICENSE](LICENSE)
 
+## 🔗 Enlaces
+
+- **Consulta pública (Portal de Daruma)**: https://sig.cali.gov.co/app.php/staff/portal/tab/16
+- **Repositorio**: https://github.com/pertiga-gio/manualito-en-daruma
+
 ## 👤 Autor
 
-Desarrollado por **Gio** — Abril 2026
+Desarrollado por **Giovanni Sánchez Soto** — Abril 2026
 
 Para la Subdirección de Gestión Estratégica del Talento Humano, Departamento Administrativo de Desarrollo e Innovación Institucional, Alcaldía de Santiago de Cali.
