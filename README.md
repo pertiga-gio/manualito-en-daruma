@@ -14,6 +14,11 @@ Desplegado en **abril de 2026**, "Manualito en Daruma" facilita la búsqueda de 
 
 > 🇬🇧 **English summary below** — [Jump to English](#-english-summary)
 
+<!-- TODO: Agregar screenshots aquí cuando estén disponibles
+![Búsqueda con filtros](docs/screenshot-filtros.png)
+![Resultados en tabla](docs/screenshot-tabla.png)
+-->
+
 ---
 
 ## 🎯 Problema
