@@ -12,7 +12,7 @@ Desplegado en **abril de 2026**, "Manualito en Daruma" facilita la búsqueda de 
 ![Language](https://img.shields.io/badge/language-JavaScript-yellow)
 ![Web Scraping](https://img.shields.io/badge/tech-web%20scraping-red)
 
-> 🇬🇧 **English summary below** — [Jump to English](#-english-summary)
+> 🇬🇧 **English summary below** — [Jump to English](#-english-summary) · [Full English README](README.en.md)
 
 <!-- SCREENSHOTS -->
 ![Dashboard — búsqueda con filtros](docs/screenshot-dashboard.png)
