@@ -14,10 +14,14 @@ Desplegado en **abril de 2026**, "Manualito en Daruma" facilita la búsqueda de 
 
 > 🇬🇧 **English summary below** — [Jump to English](#-english-summary)
 
-<!-- TODO: Agregar screenshots aquí cuando estén disponibles
+<!-- SCREENSHOTS -->
 ![Búsqueda con filtros](docs/screenshot-filtros.png)
-![Resultados en tabla](docs/screenshot-tabla.png)
--->
+
+*Lectura: interfaz de búsqueda con filtros combinados (Nivel, Denominación, Código, Grado, Dependencia/Área) y tabla con resultados. Botón "📄 Ver en Daruma" abre la ficha original en el portal SIG.*
+
+![Filtro activo — búsqueda por "talento"](docs/screenshot-filtros-busqueda.png)
+
+*Lectura: filtro de búsqueda rápida aplicado por texto libre. La tabla se actualiza en tiempo real al escribir.*
 
 ---
 
